@@ -1,0 +1,3 @@
+rootProject.name = 'to_do_online'
+
+include ':app'
