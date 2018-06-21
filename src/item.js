@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View, TouchableHighlight} from 'react-native';
+import {Platform, StyleSheet, Text, View, TouchableHighlight, Button} from 'react-native';
 
 export default class Item extends Component {
 
@@ -10,6 +10,7 @@ export default class Item extends Component {
 	  	done:(this.props.data.done =='1') ? styles.done : styles.undone
 	  };
 	  this.marcar = this.marcar.bind(this);
+	  this.excluir = this.excluir.bind(this);
 	}
 
 	marcar(){
@@ -40,6 +41,22 @@ export default class Item extends Component {
 		this.setState(state);
 	}
 
+	excluir(){
+
+		fetch(this.props.url+'/'+this.props.data.id,	 {
+  		method:'DELETE',
+  		headers:{
+  			'Accept':'application/json',
+  			'Content-Type':'application/json'
+  		}
+  	})
+  		.then((r)=>r.json())
+  		.then((json)=>{
+  			this.props.loadFunction();
+  		});
+
+	}
+
   render() {
     return (
       <View style={styles.area}>
@@ -49,6 +66,7 @@ export default class Item extends Component {
       		</View>
       	</TouchableHighlight>
         <Text>{this.props.data.item}</Text>
+        <Button title="X" style={styles.botao} onPress={this.excluir}/>
       </View>
 
     );
@@ -76,5 +94,9 @@ const styles = StyleSheet.create({
 	},
 	done:{
 		backgroundColor:'#00FF00'
+	},
+	botao:{
+		height: 40,
+		width: 40
 	}
 });

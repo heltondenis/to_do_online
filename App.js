@@ -51,7 +51,6 @@ export default class TodoOnline extends Component {
   	})
   		.then((r)=>r.json())
   		.then((json)=>{
-  			alert('Item inserido com sucesso!');
   			this.loadLista();
   		})
   }
@@ -71,7 +70,7 @@ export default class TodoOnline extends Component {
         </View>
         <FlatList
           data={this.state.lista}
-          renderItem={({item})=> <Item data={item} url={this.url} />}
+          renderItem={({item})=> <Item data={item} url={this.url} loadFunction={this.loadLista} />}
           keyExtractor={(item, index)=>item.id}
         />
       </View>
