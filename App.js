@@ -71,7 +71,7 @@ export default class TodoOnline extends Component {
         </View>
         <FlatList
           data={this.state.lista}
-          renderItem={({item})=> <Item data={item} />}
+          renderItem={({item})=> <Item data={item} url={this.url} />}
           keyExtractor={(item, index)=>item.id}
         />
       </View>
